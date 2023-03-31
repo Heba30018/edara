@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 30, 2023 at 10:02 PM
+-- Generation Time: Mar 31, 2023 at 11:46 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -22,6 +22,23 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `inventory` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `inventory`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admins`
+--
+
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE IF NOT EXISTS `admins` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -77,20 +94,18 @@ CREATE TABLE IF NOT EXISTS `requests` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `supervisors`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+DROP TABLE IF EXISTS `supervisors`;
+CREATE TABLE IF NOT EXISTS `supervisors` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `phone` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
-  `user_id` int(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `mange` (`user_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -105,10 +120,8 @@ CREATE TABLE IF NOT EXISTS `warehouses` (
   `name` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `admin_id` int(255) NOT NULL,
   `supervisor_id` int(255) DEFAULT NULL,
   PRIMARY KEY (`warehouse_id`),
-  KEY `owner` (`admin_id`),
   KEY `supervisor_id` (`supervisor_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
@@ -127,21 +140,14 @@ ALTER TABLE `product_warehouse`
 -- Constraints for table `requests`
 --
 ALTER TABLE `requests`
-  ADD CONSTRAINT `make_by` FOREIGN KEY (`supervisor_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `make_by` FOREIGN KEY (`supervisor_id`) REFERENCES `supervisors` (`id`),
   ADD CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `mange` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `warehouses`
 --
 ALTER TABLE `warehouses`
-  ADD CONSTRAINT `owner` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `warehouses_ibfk_1` FOREIGN KEY (`supervisor_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `warehouses_ibfk_1` FOREIGN KEY (`supervisor_id`) REFERENCES `supervisors` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
