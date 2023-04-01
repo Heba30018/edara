@@ -1,13 +1,12 @@
-const express =require('express');
 const router=require ('express').Router();
-const userControler=require('../controllers/UserControler')
-router.get('/',(req,res)=>{
-    res.send("Hello from router")
-})
-router.get('/allUser',(userControler.getAllUsers))
-router.post('/addUser',userControler.addNewUser)
-router.post("/deleteUser",userControler.deleteUser)
-router.post("/editeUser",userControler.edite)
+const adminAuth = require ('../middlewares/admin.js');
+const supervisorControler=require('../controllers/SupervisorControler')
+
+
+router.get('/allSupervisors',adminAuth,supervisorControler.getAllSupervisors)
+router.post('/addSupervisor',adminAuth,supervisorControler.addNewSupervisor)
+router.post("/deleteSupervisor/:deleted_id",adminAuth,supervisorControler.deleteSupervisor)
+router.put("/updateSupervisor/:id",adminAuth,supervisorControler.updateSupervisor)
   
 
 
