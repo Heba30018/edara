@@ -1,20 +1,49 @@
 const router=require ('express').Router();
 const adminAuth = require ('../middlewares/admin.js');
-const supervisorControler=require('../controllers/SupervisorControler')
-const warehouseController = require('../controllers/WarehouseController')
 
-router.get('/allSupervisors',adminAuth,supervisorControler.getAllSupervisors)
-router.post('/addSupervisor',adminAuth,supervisorControler.addNewSupervisor)
-router.post("/deleteSupervisor/:deleted_id",adminAuth,supervisorControler.deleteSupervisor)
-router.put("/updateSupervisor/:id",adminAuth,supervisorControler.updateSupervisor)
-  
+
+const path = require ('path');
+const multer = require('multer');
+
+
+const storage = multer.diskStorage({
+    destination : '../views/images/',
+    filename : (req,file,cb) =>{
+        return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
+    }
+})
+
+const upload = multer({
+    storage:storage 
+})
+
+
+
+const adminControler=require('../controllers/AdminControler.js')
+const warehouseController = require('../controllers/WarehouseController')
+const productController= require('../controllers/ProductController')
+const authController = require('../controllers/AuthController')
+
+
+
+router.post('/login',authController.login);
+router.get('/logout', authController.logout)
+                     //ADMIN
+router.get('/allSupervisors',adminAuth,adminControler.getAllSupervisors)
+router.post('/addSupervisor',adminAuth,adminControler.addNewSupervisor)
+router.post("/deleteSupervisor/:deleted_id",adminAuth,adminControler.deleteSupervisor)
+router.put("/updateSupervisor/:id",adminAuth,adminControler.updateSupervisor)
+router.get("/allRequest",adminAuth,adminControler.getAllRequest)
 
 router.get('/allWarehouse',adminAuth,warehouseController.getAllWaherhouses)
 router.post("/deleteWarehouse/:Warehouse_id",adminAuth,warehouseController.deleteWarehouse)
 router.post("/addWarehouse",adminAuth,warehouseController.addNewWaherhouse)
 router.put("/updateWarehouse/:updated_id",adminAuth,warehouseController.updateWarehouse)
 
+router.post("/addProduct",upload.single('photo'),productController.addProduct)
 
+
+                    ///SUPERVISOR
 
 
 
