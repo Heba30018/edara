@@ -16,7 +16,7 @@ class AdminModel  {
     getSupervisors(){
 
         return new Promise (resolve =>{
-        db.query("select * from supervisors",[],(error,result)=>{
+        db.query("select * FROM `users` WHERE id != 1",[],(error,result)=>{
             if(!error){
                 resolve(result )
             }
@@ -28,7 +28,7 @@ class AdminModel  {
     addNewSupervisor() {
         return new Promise(resolve =>{
             
-        db.query("select * from supervisors where email = ?",[this.email],async(error,result)=>{
+        db.query("select * from users where email = ?",[this.email],async(error,result)=>{
             if(error){
                 console.log(error);
             }
@@ -38,7 +38,7 @@ class AdminModel  {
                 return;
             }
 
-            db.query("INSERT INTO supervisors (email, password, phone, status, type) VALUES (?, ?, ?, ?, ?)",
+            db.query("INSERT INTO users (email, password, phone, status, type) VALUES (?, ?, ?, ?, ?)",
             [this.email, this.password, this.phone, this.status, this.type],(error,result)=>{
             if(!error){
                 resolve(true)
@@ -56,7 +56,7 @@ class AdminModel  {
     updateSupervisor(id,data){
         return new Promise(resolve =>{
             
-            db.query("UPDATE supervisors SET? WHERE id = ?"
+            db.query("UPDATE users SET? WHERE id = ?"
             ,[{email:data.email,password:data.password,phone:data.phone,status:data.status,type:data.type},id],(error,result)=>{
             if(!error){
                 resolve(true)
@@ -74,7 +74,7 @@ class AdminModel  {
     deleteSupervisor(deleted_id){
         console.log(deleted_id)
         return new Promise(resolve =>{
-            db.query("delete from supervisors where ?",{id:deleted_id},(error,result)=>{
+            db.query("delete from users where ?",{id:deleted_id},(error,result)=>{
             if(!error){
                 result.message = 'success'
                 resolve(true)
