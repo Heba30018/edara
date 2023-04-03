@@ -11,8 +11,13 @@ class AuthController {
             db.query("select * from users where email = ? and password =?",[email,password],function(err,data){
                 if(data.length > 0){
                     req.session.user_id = data[0].id;
-                    res.send({ message: "login successful", session: req.session });
-                    console.log(req.session.supervisor_id)
+                    if(data[0].type == 'admin'){
+                        res.send({ message: "login successful Admin", session: req.session });
+                    }
+                    else{
+                        res.send({ message: "login successful Supervisor", session: req.session });
+                    }
+                    
                 }else{
                     res.send({ message: "Incorrect email or password" });
                 }
