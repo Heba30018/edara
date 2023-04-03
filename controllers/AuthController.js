@@ -12,7 +12,7 @@ class AuthController {
                 if(data.length > 0){
                     req.session.user_id = data[0].id;
                     res.send({ message: "login successful", session: req.session });
-                    console.log(session.supervisor_id)
+                    console.log(req.session.supervisor_id)
                 }else{
                     res.send({ message: "Incorrect email or password" });
                 }
