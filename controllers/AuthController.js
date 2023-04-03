@@ -1,6 +1,5 @@
 const session = require('express-session');
 const db =require('../config/db')
-const passwordHash = require('password-hash');
 
 class AuthController {
 
@@ -9,9 +8,9 @@ class AuthController {
         var password = req.body.password;
 
         if(email && password){
-            db.query("select * from supervisors where email = ? and password =?",[email,password],function(err,data){
+            db.query("select * from users where email = ? and password =?",[email,password],function(err,data){
                 if(data.length > 0){
-                    req.session.supervisor_id = data[0].id;
+                    req.session.user_id = data[0].id;
                     res.send({ message: "login successful", session: req.session });
                     console.log(session.supervisor_id)
                 }else{
