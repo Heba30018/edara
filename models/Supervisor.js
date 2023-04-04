@@ -4,45 +4,67 @@ const db =require('../config/db')
 class SupervisorModel  {
        // Update the quantity of a product
         getProductQuantity(productId) {
-            const sql1 = 'SELECT quantity FROM requests WHERE product_id = ?';
-            connection.query(sql1, [productId], (err, result) => {
+            db.query('SELECT * FROM products WHERE product_id = ?', [productId], (err, result) => {
             if (err) throw err;
             return result[0]; 
         })
          }
 
-        updateProductQuantity(data){
-            let newQuantity;
-            if (data.request_type === 'increase') {
-              newQuantity = currentQuantity + data.quantity;
-            } else if (type === 'decrease') {
-              newQuantity = currentQuantity - quantity;
-            } else {
-              throw new Error('Invalid request type');
+        updateProductQuantity(req,res){  /// specific product 
+            var stock;
+            console.log(req.body.request_type)
+            console.log(req.body.quantity)
+            console.log(req.body.product_id)
+            db.query("SELECT stock FROM `products` WHERE product_id = ?",[req.body.product_id]
+           ,(error,result)=>{
+            if(!error){
+              stock = result[0].stock;
+               console.log(result[0].stock)
+            }else{
             }
-        
-            const sql2 = 'UPDATE products SET quantity = ? WHERE id = ?';
-            connection.query(sql2, [newQuantity, productId], (err, result) => {
-              if (err) throw err;
-              console.log('Product quantity updated');
-            });
+            if(req.body.request_type == 'increment'){
+              stock +=req.body.quantity;
+            }else{
+              stock -=req.body.quantity;
+            }
+            db.query("UPDATE products SET stock  =? where product_id = ?",[stock,req.body.product_id]
+            ,(error,result)=>{
+             if(!error){
+               console.log("successfuly");
+             }else{
+             }}
+         )
+      
+      
+
           }
+            
+        )
+        
+    }
+          
         
         
          
    request(req,res) {
-    const now = new Date();
+    const date = new Date();
+    const options = {day: '2-digit', month: '2-digit', year: 'numeric'};
+    const formattedDate = date.toLocaleDateString('en-GB', options);
     return new Promise (resolve =>{
-        db.query("INSERT INTO requests (supervisor_id, product_id, quantity, date, request_type) VALUES (?, ?, ?, ?, ?)",
-        [req.session.supervisor_id,req.product_id ,req.body.quantity,now.getDate(),req.body.request_type],(error,result)=>{
+
+        db.query("INSERT INTO requests (supervisor_id, product_id, quantity,status, date, request_type) VALUES (?, ?, ?,?, ?, ?)",
+        [req.session.user_id,req.body.product_id ,req.body.quantity,'pending',formattedDate,req.body.request_type],(error,result)=>{
             if(!error){
                 resolve(result )
+            }else{
+
             }
         }
         )
-        
-        var result= getProductQuantity(req.product_id)
-        updateProductQuantity(result);
+        this.updateProductQuantity(req,res);
+        // var result= this.getProductQuantity(req.product_id) 
+        // console.log(typeof result) //product where i want increase prod_id quantity type
+        // this.updateProductQuantity(result,req);
 
   
         }
