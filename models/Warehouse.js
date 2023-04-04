@@ -38,6 +38,7 @@ class WarehouseModel {
     }
 
     addWarehouse(){
+        console.log(this.supervisor_id)
         return new Promise(resolve =>{ 
                 db.query("INSERT INTO warehouses (name, location,status, supervisor_id) VALUES (?, ?, ?, ?)",
                 [this.name, this.location, this.status, this.supervisor_id],(error,result)=>{
@@ -45,7 +46,6 @@ class WarehouseModel {
                     resolve(true)
                 }
                 else{
-                    console.log(error)
                     resolve(false)
                 }
             })

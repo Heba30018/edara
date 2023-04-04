@@ -11,10 +11,10 @@ static async getAllWaherhouses(req,res){
    else {
       res.send("no result")
    }
-      }
+   }
 
  static async addNewWaherhouse(req,res){
-   console.log(req.body)
+   console.log(req.body.supervisor_id)
    var Warehouse = new warehouseModel(req.body.name,req.body.location,req.body.status,req.body.supervisor_id);
    var x =await Warehouse.addWarehouse()
    console.log(x);
@@ -56,5 +56,6 @@ static async deleteWarehouse(req,res){
       res.send("delete failed")
    }
 }
+
 }
 module.exports=WarehouseController;
