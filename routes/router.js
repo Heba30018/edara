@@ -36,6 +36,10 @@ router.post("/deleteSupervisor/:deleted_id",adminAuth,adminControler.deleteSuper
 router.put("/updateSupervisor/:id",adminAuth,adminControler.updateSupervisor)
 router.get("/allRequest",adminAuth,adminControler.getAllRequest)
 
+router.put('/updateRequestAccept',adminAuth,adminControler.RequestAccepted)
+router.put('/updateRequestReject',adminAuth,adminControler.RequestRejected)
+
+
 router.get('/allWarehouse',adminAuth,warehouseController.getAllWaherhouses)
 router.post("/deleteWarehouse/:Warehouse_id",adminAuth,warehouseController.deleteWarehouse)
 router.post("/addWarehouse",adminAuth,warehouseController.addNewWaherhouse)
@@ -50,6 +54,6 @@ router.post("/deleteProduct/:delete_product_id",adminAuth,productController.dele
 
                     ///SUPERVISOR
 router.post("/request",supervisorController.request)
-
+router.get("/Products",supervisorController.getProductPerWarehouse)
 
 module.exports=router;
