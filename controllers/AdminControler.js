@@ -67,6 +67,30 @@ static async getAllRequest(req,res){
       res.send("no result")
    }
 }
+static async RequestAccepted(req,res){
+   var admin = new adminModel();
+   var x  = await admin.RequestAccepted(req.body.request_id);
+   if(x){
+      
+      res.send("update done")
+   }
+   else{
+      res.send("update failed")
+   }
+ 
+}
+
+static async RequestRejected(req,res){
+   var admin = new adminModel();
+   var x  = await admin.RequestRejected(req.body.request_id);
+   if(x){
+      res.send("update done")
+   }
+   else{
+      res.send("update failed")
+   }
+ 
+}
 
 static async getPendingRequest(req,res){
    var admin = new adminModel();
