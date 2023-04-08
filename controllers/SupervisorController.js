@@ -11,9 +11,12 @@ class SupervisorController {
         }
     }
     static async getProductPerWarehouse(req,res){
-
+        var supervisor = new supervisorModel();
+        var result = await supervisor.getProductPerWarehouse(req,res);
+        console.log(result);
+        res.send(result);
+    
     }
-
 
 }
 
