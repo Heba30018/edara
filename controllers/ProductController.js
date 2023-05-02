@@ -5,7 +5,7 @@ class ProductController {
 
 
     static async addNewProduct(req, res) {
-        var product = new productModel(req.body.name, req.body.description, req.file.filename, req.body.stock);
+        var product = new productModel(req.body.name, req.body.description, req.body.photo, req.body.stock);
         var x = await product.addNewProduct()
         if (x) {
             res.send("add successful")
