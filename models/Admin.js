@@ -187,7 +187,7 @@ class AdminModel  {
         console.log(request_id)
         console.log(typeof request_id)
         return new Promise (resolve =>{
-            db.query("update requests set status='accept' where request_id=?", [request_id],(error,result)=>{
+            db.query("update requests set status='approved' where request_id=?", [request_id],(error,result)=>{
                 if(!error){
                     this.UpdateTotalStock(request_id)
                     this.UpdateStockInWarehouse(request_id)
@@ -206,7 +206,7 @@ class AdminModel  {
         console.log(request_id)
         console.log(typeof request_id)
         return new Promise (resolve =>{
-            db.query("update requests set status='reject' where request_id=?", [request_id],(error,result)=>{
+            db.query("update requests set status='rejected' where request_id=?", [request_id],(error,result)=>{
                 if(!error){
                     resolve(true)
                 }
