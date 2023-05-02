@@ -45,9 +45,9 @@ router.post("/deleteWarehouse/:Warehouse_id",adminAuth,warehouseController.delet
 router.post("/addWarehouse",adminAuth,warehouseController.addNewWaherhouse)
 router.put("/updateWarehouse/:updated_id",adminAuth,warehouseController.updateWarehouse)
 
-router.post("/addProduct",upload.single('photo'),productController.addNewProduct)
+router.post("/addProduct",productController.addNewProduct)
 router.get("/getProducts",adminAuth,productController.getProducts)
-router.put("/updateProduct/:product_id",upload.single('photo'),productController.updateProduct)
+router.put("/updateProduct/:product_id",adminAuth,productController.updateProduct)
 router.post("/deleteProduct/:delete_product_id",adminAuth,productController.deleteProduct)
 
 
