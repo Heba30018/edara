@@ -30,30 +30,30 @@ const supervisorController = require('../controllers/SupervisorController')
 router.post('/login',authController.login);
 router.get('/logout', authController.logout)
                      //ADMIN
-router.get('/allSupervisors',adminAuth,adminControler.getAllSupervisors)
-router.post('/addSupervisor',adminAuth,adminControler.addNewSupervisor)
-router.post("/deleteSupervisor/:deleted_id",adminAuth,adminControler.deleteSupervisor)
-router.put("/updateSupervisor/:id",adminAuth,adminControler.updateSupervisor)
-router.get("/allRequest",adminAuth,adminControler.getAllRequest)
+router.get('/supervisor',adminAuth,adminControler.getAllSupervisors)
+router.post('/supervisor',adminAuth,adminControler.addNewSupervisor)
+router.delete("/supervisor/:deleted_id",adminAuth,adminControler.deleteSupervisor)
+router.put("/supervisor/:id",adminAuth,adminControler.updateSupervisor)
+router.get("/request",adminAuth,adminControler.getAllRequest)
 
 router.put('/updateRequestAccept',adminAuth,adminControler.RequestAccepted)
 router.put('/updateRequestReject',adminAuth,adminControler.RequestRejected)
 
 
-router.get('/allWarehouse',adminAuth,warehouseController.getAllWaherhouses)
-router.post("/deleteWarehouse/:Warehouse_id",adminAuth,warehouseController.deleteWarehouse)
-router.post("/addWarehouse",adminAuth,warehouseController.addNewWaherhouse)
-router.put("/updateWarehouse/:updated_id",adminAuth,warehouseController.updateWarehouse)
+router.get('/warehouse',adminAuth,warehouseController.getAllWaherhouses)
+router.delete("/warehouse/:Warehouse_id",adminAuth,warehouseController.deleteWarehouse)
+router.post("/warehouse",adminAuth,warehouseController.addNewWaherhouse)
+router.put("/warehouse/:updated_id",adminAuth,warehouseController.updateWarehouse)
 
-router.post("/addProduct",productController.addNewProduct)
-router.get("/getProducts",adminAuth,productController.getProducts)
-router.put("/updateProduct/:product_id",adminAuth,productController.updateProduct)
-router.post("/deleteProduct/:delete_product_id",adminAuth,productController.deleteProduct)
+router.post("/product",productController.addNewProduct)
+router.get("/product",adminAuth,productController.getProducts)
+router.put("/product/:product_id",adminAuth,productController.updateProduct)
+router.delete("/product/:delete_product_id",adminAuth,productController.deleteProduct)
 
 
 
                     ///SUPERVISOR
-router.post("/request",supervisorController.request)
+router.post("/requests",supervisorController.request)
 router.get("/Products",supervisorController.getProductPerWarehouse)
 
 module.exports=router;
