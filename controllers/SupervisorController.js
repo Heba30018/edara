@@ -17,7 +17,12 @@ class SupervisorController {
         res.send(result);
     
     }
-
+    static async getRequests(req,res){
+        var supervisor = new supervisorModel();
+        var result = await supervisor.getRequests(req,res);
+        console.log(result);
+        res.send(result);
+    }
 }
 
 module.exports=SupervisorController;

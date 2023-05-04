@@ -45,6 +45,16 @@ class SupervisorModel  {
             })
         })
     }
+    getRequests(req,res){
+        return new Promise (resolve =>{
+            db.query("select * from requests WHERE supervisor_id = ?",[req.session.user_id],(error,result)=>{
+                if(!error){
+                    resolve(result )
+                }
+            })
+    
+            })
+    }
 }
 
 
