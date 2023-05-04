@@ -38,7 +38,6 @@ class WarehouseModel {
     }
 
     addWarehouse(){
-        console.log(this.supervisor_id)
         return new Promise(resolve =>{ 
                 db.query("INSERT INTO warehouses (name, location,status, supervisor_id) VALUES (?, ?, ?, ?)",
                 [this.name, this.location, this.status, this.supervisor_id],(error,result)=>{
@@ -68,7 +67,20 @@ class WarehouseModel {
     }) 
        
     }
-
+    assignProduct_ToWarehouse(req,res){
+        console.log(req.body)
+        return new Promise(resolve =>{ 
+            db.query("INSERT INTO product_warehouse (product_id, warehouse_id,warehouse_stock) VALUES (?, ?, ?)",
+            [req.body.product_id, req.body.warehouse_id,req.body.warehouse_stock],(error,result)=>{
+            if(!error){
+                resolve(true)
+            }
+            else{
+                resolve(false)
+            }
+        })
+    })
+    }
 }
 
 

@@ -44,6 +44,8 @@ router.get('/warehouse',adminAuth,warehouseController.getAllWaherhouses)
 router.delete("/warehouse/:Warehouse_id",adminAuth,warehouseController.deleteWarehouse)
 router.post("/warehouse",adminAuth,warehouseController.addNewWaherhouse)
 router.put("/warehouse/:updated_id",adminAuth,warehouseController.updateWarehouse)
+router.post("/warehouse/assignProductToWarehouse",adminAuth,warehouseController.assignProduct_ToWarehouse)
+
 
 router.post("/product",productController.addNewProduct)
 router.get("/product",adminAuth,productController.getProducts)
@@ -54,7 +56,7 @@ router.delete("/product/:delete_product_id",adminAuth,productController.deletePr
 
                     ///SUPERVISOR
 router.post("/supervisor/requests",supervisorController.request)
-router.get("/supervisor/Products",supervisorController.getProductPerWarehouse)
+router.get("/supervisor/products",supervisorController.getProductPerWarehouse)
 router.get("/supervisor/getRequests",supervisorController.getRequests)
 
 module.exports=router;
