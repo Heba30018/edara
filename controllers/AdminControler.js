@@ -14,7 +14,7 @@ static async getAllSupervisors(req,res){
       }
 
  static async addNewSupervisor(req,res){
-   var admin = new adminModel(req.body.email,req.body.password,req.body.phone,req.body.status,req.body.type);
+   var admin = new adminModel(req.body.email,req.body.password,req.body.phone,req.body.status,"supervisor");
    var x =await admin.addNewSupervisor()
    console.log(x);
    if(x){
