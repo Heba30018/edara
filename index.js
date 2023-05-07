@@ -16,7 +16,8 @@ app.use(session({
 
 // Allow all origins
 app.use(cors({
-  origin: '*'
+  origin: 'http://localhost:3001',
+  credentials: true
 }));
 
 // parse application/x-www-form-urlencoded
