@@ -34,8 +34,6 @@ class SupervisorModel {
 
     async getProductPerWarehouse(req) {
         return new Promise((resolve, reject) => {
-            console.log("hsik")
-            console.log(JSON.stringify(req.session))
             db.query('SELECT products.product_id, name, description, photo, warehouse_stock FROM products JOIN product_warehouse WHERE product_warehouse.warehouse_id = ? AND product_warehouse.product_id = products.product_id', [req.params.warehouse_id], (error, result) => {
                 if (error) {
                     console.error(error);
@@ -49,7 +47,7 @@ class SupervisorModel {
 
     getRequests(req, res) {
         return new Promise(resolve => {
-            db.query("select * from requests WHERE supervisor_id = ?", [req.session.user_id], (error, result) => {
+            db.query("select * from requests WHERE supervisor_id = ?", [req.params.user_id], (error, result) => {
                 if (!error) {
                     resolve(result)
                 }
