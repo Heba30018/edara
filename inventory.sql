@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 09, 2023 at 08:42 AM
+-- Generation Time: May 08, 2023 at 01:37 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -37,15 +37,15 @@ CREATE TABLE IF NOT EXISTS `products` (
   `photo` varchar(255) NOT NULL,
   `stock` int(255) NOT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `name`, `description`, `photo`, `stock`) VALUES
-(1, 'update_Product', 'update', 'data.photo', 209),
-(12, 'added product2', 'added product2', 'photo_1680580878480.jpg', 16);
+INSERT INTO `products` (`product_id`, `name`, `description`, `photo`, `stock`) VALUES(1, 'update_Products', 'updateddddd', 'http://127.0.0.1:8000/image1.jpeg', 205);
+INSERT INTO `products` (`product_id`, `name`, `description`, `photo`, `stock`) VALUES(12, 'added product2', 'added product2', 'http://127.0.0.1:8000/image2.jpeg', 45);
+INSERT INTO `products` (`product_id`, `name`, `description`, `photo`, `stock`) VALUES(20, 'please work please', 'did it work?', 'http://127.0.0.1:8000/image3.jpeg', 5);
 
 -- --------------------------------------------------------
 
@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `product_warehouse` (
   `product_id` int(255) NOT NULL,
   `warehouse_id` int(255) NOT NULL,
   `warehouse_stock` int(255) NOT NULL,
+  PRIMARY KEY (`product_id`,`warehouse_id`),
   KEY `product_id` (`product_id`),
   KEY `warehouse_id` (`warehouse_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -66,12 +67,11 @@ CREATE TABLE IF NOT EXISTS `product_warehouse` (
 -- Dumping data for table `product_warehouse`
 --
 
-INSERT INTO `product_warehouse` (`product_id`, `warehouse_id`, `warehouse_stock`) VALUES
-(1, 4, 26),
-(12, 4, 84),
-(12, 3, 70),
-(12, 3, 70),
-(1, 4, 20);
+INSERT INTO `product_warehouse` (`product_id`, `warehouse_id`, `warehouse_stock`) VALUES(1, 4, 23);
+INSERT INTO `product_warehouse` (`product_id`, `warehouse_id`, `warehouse_stock`) VALUES(12, 4, 119);
+INSERT INTO `product_warehouse` (`product_id`, `warehouse_id`, `warehouse_stock`) VALUES(12, 11, 6);
+INSERT INTO `product_warehouse` (`product_id`, `warehouse_id`, `warehouse_stock`) VALUES(20, 3, 30);
+INSERT INTO `product_warehouse` (`product_id`, `warehouse_id`, `warehouse_stock`) VALUES(20, 11, 7);
 
 -- --------------------------------------------------------
 
@@ -97,17 +97,16 @@ CREATE TABLE IF NOT EXISTS `requests` (
 -- Dumping data for table `requests`
 --
 
-INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES
-(20, 2, 1, 1, 'accept', '04/04/2023', 'decrement'),
-(22, 2, 1, 3, 'accept', '08/04/2023', 'increment'),
-(23, 3, 1, 3, 'accept', '08/04/2023', 'increment'),
-(24, 2, 1, 3, 'accept', '08/04/2023', 'decrement'),
-(25, 3, 1, 3, 'accept', '08/04/2023', 'increment'),
-(26, 2, 1, 3, 'accept', '08/04/2023', 'increment'),
-(27, 3, 12, 3, 'accept', '08/04/2023', 'decrement'),
-(28, 2, 12, 3, 'pending', '08/04/2023', 'increment'),
-(29, 2, 12, 3, 'accept', '08/04/2023', 'increment'),
-(30, 3, 12, 4, 'accept', '08/04/2023', 'increment');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(20, 2, 1, 1, 'approved', '04/04/2023', 'decrement');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(22, 2, 1, 3, 'rejected', '08/04/2023', 'increment');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(23, 3, 1, 3, 'approved', '08/04/2023', 'increment');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(24, 2, 1, 3, 'approved', '08/04/2023', 'decrement');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(25, 3, 1, 3, 'approved', '08/04/2023', 'increment');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(26, 2, 1, 3, 'approved', '08/04/2023', 'increment');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(27, 3, 12, 3, 'rejected', '08/04/2023', 'decrement');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(28, 2, 12, 3, 'rejected', '08/04/2023', 'increment');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(29, 2, 12, 3, 'rejected', '08/04/2023', 'increment');
+INSERT INTO `requests` (`request_id`, `supervisor_id`, `product_id`, `quantity`, `status`, `date`, `request_type`) VALUES(30, 3, 12, 4, 'approved', '08/04/2023', 'increment');
 
 -- --------------------------------------------------------
 
@@ -124,16 +123,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `phone`, `status`, `type`) VALUES
-(1, 'admin@gmail.com', '123', '012343', 'online', 'admin'),
-(2, 'super2@gmail.com', '12345', '01005345', 'online', 'supervisor'),
-(3, 'super3@gmail.com', '123456', '09283', 'offline', 'supervisor');
+INSERT INTO `users` (`id`, `email`, `password`, `phone`, `status`, `type`) VALUES(1, 'admin@gmail.com', '123', '012343', 'online', 'admin');
+INSERT INTO `users` (`id`, `email`, `password`, `phone`, `status`, `type`) VALUES(2, 'super2@gmail.com', '12345', '01005345', 'online', 'supervisor');
+INSERT INTO `users` (`id`, `email`, `password`, `phone`, `status`, `type`) VALUES(3, 'super3@gmail.com', '123456', '09283', 'offline', 'supervisor');
+INSERT INTO `users` (`id`, `email`, `password`, `phone`, `status`, `type`) VALUES(9, 'super4@gmail.com', 'asd123', '123321', 'online', 'supervisor');
+INSERT INTO `users` (`id`, `email`, `password`, `phone`, `status`, `type`) VALUES(14, 'test@test', '123', '123321', 'online', 'supervisor');
 
 -- --------------------------------------------------------
 
@@ -150,16 +150,15 @@ CREATE TABLE IF NOT EXISTS `warehouses` (
   `supervisor_id` int(255) DEFAULT NULL,
   PRIMARY KEY (`warehouse_id`),
   KEY `supervisor_id` (`supervisor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `warehouses`
 --
 
-INSERT INTO `warehouses` (`warehouse_id`, `name`, `location`, `status`, `supervisor_id`) VALUES
-(1, 'warehouse1', 'cairo', 'online', 1),
-(3, 'warehouse3', 'Haram', 'active', 3),
-(4, 'new_warehouse44', 'Egypt', 'in-active', 2);
+INSERT INTO `warehouses` (`warehouse_id`, `name`, `location`, `status`, `supervisor_id`) VALUES(3, 'warehouse3', 'Haram', 'active', 3);
+INSERT INTO `warehouses` (`warehouse_id`, `name`, `location`, `status`, `supervisor_id`) VALUES(4, 'new_warehouse4', 'Egypt', 'inactive', 9);
+INSERT INTO `warehouses` (`warehouse_id`, `name`, `location`, `status`, `supervisor_id`) VALUES(11, 'test', 'misery land', 'active', 14);
 
 --
 -- Constraints for dumped tables
@@ -183,7 +182,7 @@ ALTER TABLE `requests`
 -- Constraints for table `warehouses`
 --
 ALTER TABLE `warehouses`
-  ADD CONSTRAINT `warehouses_ibfk_1` FOREIGN KEY (`supervisor_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `warehouses_ibfk_1` FOREIGN KEY (`supervisor_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
