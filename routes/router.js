@@ -56,7 +56,7 @@ router.delete("/product/:delete_product_id",adminAuth,productController.deletePr
 
                     ///SUPERVISOR
 router.post("/supervisor/requests",supervisorController.request)
-router.get("/supervisor/products",supervisorController.getProductPerWarehouse)
-router.get("/supervisor/getRequests",supervisorController.getRequests)
+router.get("/supervisor/products/:warehouse_id",supervisorController.getProductPerWarehouse)
+router.get("/supervisor/getRequests/:user_id",supervisorController.getRequests)
 
 module.exports=router;
