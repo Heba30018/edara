@@ -16,7 +16,6 @@ static async getAllWaherhouses(req,res){
  static async addNewWaherhouse(req,res){
    var Warehouse = new warehouseModel(req.body.name,req.body.location,req.body.status,req.body.supervisor_id);
    res.send(await Warehouse.addWarehouse())
-  
  }
  
  static async updateWarehouse(req,res){

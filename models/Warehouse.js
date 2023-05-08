@@ -52,7 +52,7 @@ class WarehouseModel {
                         resolve("Add success!");
                     }
                     else{
-                        resolve("Failed to add")
+                        resolve("Failed to add!")
                     }
                 })
                 }
