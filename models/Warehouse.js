@@ -39,15 +39,26 @@ class WarehouseModel {
 
     addWarehouse(){
         return new Promise(resolve =>{ 
-                db.query("INSERT INTO warehouses (name, location,status, supervisor_id) VALUES (?, ?, ?, ?)",
-                [this.name, this.location, this.status, this.supervisor_id],(error,result)=>{
-                if(!error){
-                    resolve(true)
+      
+            db.query("SELECT * FROM `warehouses` WHERE warehouses.supervisor_id = ?",[this.supervisor_id],async(error,result)=>{
+               
+                if(result.length >0){
+                    console.log()
+                    resolve("supervisor already manage warehouse");
+                }else{
+                    db.query("INSERT INTO warehouses (name, location,status, supervisor_id) VALUES (?, ?, ?, ?)",
+                    [this.name, this.location, this.status, this.supervisor_id],(error,result)=>{
+                    if(!error){
+                        resolve("Add success!");
+                    }
+                    else{
+                        resolve("Failed to add")
+                    }
+                })
                 }
-                else{
-                    resolve(false)
-                }
-            })
+
+            });
+               
         })
     }
 
