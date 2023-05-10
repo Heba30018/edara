@@ -1,8 +1,12 @@
 const warehouseModel=require('../models/Warehouse')
+const CRUD = require('./CRUD');
 
-class WarehouseController {
+class WarehouseController extends CRUD{
+   constructor(){
+      super()
+   }
 
-static async getAllWaherhouses(req,res){
+static async get(req,res){
    var warehouse = new warehouseModel();
    var results  = await warehouse.getwarehouses();
    if(results){
@@ -13,12 +17,12 @@ static async getAllWaherhouses(req,res){
    }
    }
 
- static async addNewWaherhouse(req,res){
+ static async add(req,res){
    var Warehouse = new warehouseModel(req.body.name,req.body.location,req.body.status,req.body.supervisor_id);
    res.send(await Warehouse.addWarehouse())
  }
  
- static async updateWarehouse(req,res){
+ static async update(req,res){
    const {updated_id} = req.params;
   const data = req.body;
    var Warehouse = new warehouseModel();
@@ -35,7 +39,7 @@ static async getAllWaherhouses(req,res){
 
  }
 
-static async deleteWarehouse(req,res){
+static async delete(req,res){
    const {Warehouse_id} = req.params;
    console.log(Warehouse_id)
    var warehouse = new warehouseModel();

@@ -1,8 +1,10 @@
 const db = require('../config/db')
+const User = require('../controllers/User')
 
-
-class SupervisorModel {
-
+class SupervisorModel extends User {
+    constructor(email='',password='',phone='',status='',type=''){
+        super(email,password,phone,status,type)
+     }
     request(req, res) {
         const date = new Date();
         const options = {day: '2-digit', month: '2-digit', year: 'numeric'};

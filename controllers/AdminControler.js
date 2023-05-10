@@ -1,8 +1,11 @@
 const adminModel=require('../models/Admin')
+const CRUD = require('./CRUD');
 
-class AdminController {
-
-static async getAllSupervisors(req,res){
+class AdminController extends CRUD{
+   constructor(){
+      super();
+   }
+static async get(req,res){
    var admin = new adminModel();
    var results  = await admin.getSupervisors();
    if(results){
@@ -13,7 +16,7 @@ static async getAllSupervisors(req,res){
    }
       }
 
- static async addNewSupervisor(req,res){
+ static async add(req,res){
    var admin = new adminModel(req.body.email,req.body.password,req.body.phone,req.body.status,"supervisor");
    var x =await admin.addNewSupervisor()
    console.log(x);
@@ -26,7 +29,7 @@ static async getAllSupervisors(req,res){
    
  }
 
- static async updateSupervisor(req,res){
+ static async update(req,res){
    const {id} = req.params;
   const data = req.body;
    var admin = new adminModel();
@@ -43,7 +46,7 @@ static async getAllSupervisors(req,res){
 
  }
 
-static async deleteSupervisor(req,res){
+static async delete(req,res){
    const {deleted_id} = req.params;
    console.log(deleted_id)
    var admin = new adminModel();

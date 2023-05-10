@@ -1,10 +1,13 @@
 const productModel = require('../models/Product')
+const CRUD = require('./CRUD');
 
 
-class ProductController {
+class ProductController extends CRUD {
+    constructor(){
+        super()
+    }
 
-
-    static async addNewProduct(req, res) {
+    static async add(req, res) {
         var product = new productModel(req.body.name, req.body.description, req.body.photo, req.body.stock);
         var x = await product.addNewProduct()
         if (x) {
@@ -14,7 +17,7 @@ class ProductController {
         }
     }
 
-    static async getProducts(req, res) {
+    static async get(req, res) {
         var product = new productModel();
         var result = await product.getProducts()
         if (result) {
@@ -24,7 +27,7 @@ class ProductController {
         }
     }
 
-    static async updateProduct(req, res) {
+    static async update(req, res) {
         const {product_id} = req.params;
         const data = req.body;
         var product = new productModel('', '', '', '');
@@ -37,7 +40,7 @@ class ProductController {
         }
     }
 
-    static async deleteProduct(req, res) {
+    static async delete(req, res) {
         const {delete_product_id} = req.params;
         console.log(delete_product_id)
         var product = new productModel();

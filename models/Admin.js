@@ -1,14 +1,10 @@
 const db =require('../config/db')
+const User = require('../controllers/User')
 
 
-
-class AdminModel  {
+class AdminModel extends User {
     constructor(email='',password='',phone='',status='',type=''){
-        this.email = email;
-        this.password = password;
-        this.phone = phone;
-        this.status = status;
-        this.type = type;
+       super(email,password,phone,status,type)
     }
 
     getSupervisors(){

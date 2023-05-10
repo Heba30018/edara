@@ -12,8 +12,14 @@ const getWarehouseId=(supervisor_id)=>{
         })
 
  }
-class AuthController {
-    
+class User {
+    constructor(email='',password='',phone='',status='',type=''){
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.status = status;
+        this.type = type;
+    }
     static async login(req, res,next){
         var email = req.body.email;
         var password = req.body.password;
@@ -26,7 +32,7 @@ class AuthController {
                         res.send({ message: "login successful Admin", session: req.session });
                     }
                     else{
-                        req.session.warehouse_id= await getWarehouseId(data[0].id)
+                        // req.session.warehouse_id= await getWarehouseId(data[0].id)
                       
                         res.send({ message: "login successful Supervisor", session: req.session });
 
@@ -60,4 +66,4 @@ class AuthController {
     }
 }
 
-module.exports=AuthController;
+module.exports=User;
